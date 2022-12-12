@@ -50,6 +50,13 @@ local RateLimitingHandler = {}
 RateLimitingHandler.VERSION = kong_meta.version
 RateLimitingHandler.PRIORITY = 910
 
+local function getkeyx( incomingpath , patternx )
+  return string.match(incomingpath, patternx)
+end
+
+local function errorhandlerx( err )
+  kong.log.err("failed to get regex match key: ", tostring(err))
+end
 
 local function get_identifier(conf)
   local identifier
@@ -73,6 +80,13 @@ local function get_identifier(conf)
     local req_path = kong.request.get_path()
     if req_path == conf.path then
       identifier = req_path
+    end
+    -- This is regix match for path 
+    -- example-> stx, rtx, err = xpcall(getkey, errorhandlerx , "/api/abc/test/kids/keys" , "/api/abc/(.+)")
+    -- result-> stx: true , rtx: test/kids/keys , err: nil
+    local stx, rtx, err = xpcall(getkeyx, errorhandlerx , req_path , conf.path)
+    if stx and rtx  then
+      identifier = rtx
     end
   end
 
