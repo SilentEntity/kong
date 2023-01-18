@@ -58,6 +58,7 @@ error_default_type = text/plain
 upstream_keepalive_pool_size = 60
 upstream_keepalive_max_requests = 100
 upstream_keepalive_idle_timeout = 60
+debug_header = off
 
 nginx_user = kong kong
 nginx_worker_processes = auto
@@ -68,6 +69,7 @@ nginx_main_worker_processes = auto
 nginx_main_worker_rlimit_nofile = auto
 nginx_events_worker_connections = auto
 nginx_events_multi_accept = on
+nginx_http_charset = UTF-8
 nginx_http_client_max_body_size = 0
 nginx_http_client_body_buffer_size = 8k
 nginx_http_ssl_protocols = NONE
@@ -104,6 +106,9 @@ pg_ssl = off
 pg_ssl_verify = off
 pg_max_concurrent_queries = 0
 pg_semaphore_timeout = 60000
+pg_keepalive_timeout = NONE
+pg_pool_size = NONE
+pg_backlog = NONE
 
 pg_ro_host = NONE
 pg_ro_port = NONE
@@ -116,6 +121,9 @@ pg_ro_ssl = NONE
 pg_ro_ssl_verify = NONE
 pg_ro_max_concurrent_queries = NONE
 pg_ro_semaphore_timeout = NONE
+pg_ro_keepalive_timeout = NONE
+pg_ro_pool_size = NONE
+pg_ro_backlog = NONE
 
 cassandra_contact_points = 127.0.0.1
 cassandra_port = 9042
