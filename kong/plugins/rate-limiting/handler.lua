@@ -80,13 +80,14 @@ local function get_identifier(conf)
     local req_path = kong.request.get_path()
     if req_path == conf.path then
       identifier = req_path
-    end
-    -- This is regix match for path 
-    -- example-> stx, rtx, err = xpcall(getkey, errorhandlerx , "/api/abc/test/kids/keys" , "/api/abc/(.+)")
-    -- result-> stx: true , rtx: test/kids/keys , err: nil
-    local stx, rtx, err = xpcall(getkeyx, errorhandlerx , req_path , conf.path)
-    if stx and rtx  then
-      identifier = rtx
+    else
+      -- This is regix match for path 
+      -- example-> stx, rtx, err = xpcall(getkey, errorhandlerx , "/api/abc/test/kids/keys" , "/api/abc/(.+)")
+      -- result-> stx: true , rtx: test/kids/keys , err: nil
+      local stx, rtx, err = xpcall(getkeyx, errorhandlerx , req_path , conf.path)
+      if stx and rtx  then
+        identifier = rtx
+      end
     end
   end
 
